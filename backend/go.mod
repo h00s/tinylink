@@ -2,7 +2,7 @@ module github.com/h00s/tinylink
 
 go 1.21.5
 
-require github.com/h00s/raptor v0.1.3
+require github.com/h00s/raptor v0.2.1
 
 require (
 	github.com/BurntSushi/toml v1.3.2 // indirect

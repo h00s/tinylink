@@ -6,7 +6,7 @@ import (
 )
 
 func Controllers() raptor.Controllers {
-	return raptor.RegisterControllers(
+	return raptor.Controllers{
 		&controllers.SPAController{},
-	)
+	}
 }
