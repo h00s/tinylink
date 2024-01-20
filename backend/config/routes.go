@@ -1,6 +1,6 @@
 package config
 
-import "github.com/h00s/raptor"
+import "github.com/go-raptor/raptor"
 
 func Routes() raptor.Routes {
 	return raptor.CollectRoutes(

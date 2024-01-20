@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/h00s/raptor"
+	"github.com/go-raptor/raptor"
 	"github.com/h00s/tinylink/config"
 	"github.com/h00s/tinylink/config/initializers"
 )

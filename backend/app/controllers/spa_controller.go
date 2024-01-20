@@ -1,6 +1,6 @@
 package controllers
 
-import "github.com/h00s/raptor"
+import "github.com/go-raptor/raptor"
 
 type SPAController struct {
 	raptor.Controller

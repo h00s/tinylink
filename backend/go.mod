@@ -2,14 +2,14 @@ module github.com/h00s/tinylink
 
 go 1.21.5
 
-require github.com/h00s/raptor v0.2.3
+require github.com/go-raptor/raptor v0.3.2
 
 require (
 	github.com/BurntSushi/toml v1.3.2 // indirect
 	github.com/andybalholm/brotli v1.0.6 // indirect
 	github.com/gofiber/fiber/v2 v2.52.0 // indirect
 	github.com/gofiber/template v1.8.2 // indirect
-	github.com/gofiber/template/html/v2 v2.0.5 // indirect
+	github.com/gofiber/template/html/v2 v2.1.0 // indirect
 	github.com/gofiber/utils v1.1.0 // indirect
 	github.com/google/uuid v1.5.0 // indirect
 	github.com/klauspost/compress v1.17.4 // indirect
