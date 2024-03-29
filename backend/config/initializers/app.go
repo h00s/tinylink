@@ -4,7 +4,7 @@ import (
 	"github.com/go-raptor/raptor"
 )
 
-func App() *raptor.AppInitializer {
+func App(c *raptor.Config) *raptor.AppInitializer {
 	return &raptor.AppInitializer{
 		Database:    Database(),
 		Services:    Services(),

@@ -7,10 +7,10 @@ import (
 )
 
 func main() {
-	r := raptor.NewRaptor(
-		initializers.App(),
-		config.Routes(),
-	)
+	r := raptor.NewRaptor()
+
+	r.Init(initializers.App(r.Utils.Config))
+	r.RegisterRoutes(config.Routes())
 
 	r.Listen()
 }
