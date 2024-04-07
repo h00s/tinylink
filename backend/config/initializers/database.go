@@ -3,7 +3,7 @@ package initializers
 import (
 	"github.com/go-raptor/connector/postgres"
 	"github.com/go-raptor/raptor"
-	"github.com/h00s/tinylink/app/db"
+	"github.com/h00s/tinylink/db"
 )
 
 func Database() raptor.Database {
