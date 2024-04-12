@@ -6,6 +6,7 @@ require (
 	github.com/go-raptor/connector/postgres v0.2.7
 	github.com/go-raptor/raptor v0.9.0
 	golang.org/x/net v0.24.0
+	gorm.io/gorm v1.25.9
 )
 
 require (
@@ -34,5 +35,4 @@ require (
 	golang.org/x/sys v0.19.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
 	gorm.io/driver/postgres v1.5.7 // indirect
-	gorm.io/gorm v1.25.9 // indirect
 )

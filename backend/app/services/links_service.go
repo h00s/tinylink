@@ -36,6 +36,7 @@ func (l *LinksService) Create(link models.Link) (models.Link, error) {
 	if err := internal.IsURLValid(link.URL); err != nil {
 		return link, err
 	}
+	// find if url already exists
 	err := l.DB.
 		Select(models.LinkPermittedParams).
 		Create(&link).Error
