@@ -36,9 +36,12 @@ func (ls *LinksService) Create(link models.Link) (models.Link, error) {
 	if err := internal.IsURLValid(link.URL); err != nil {
 		return link, err
 	}
+	link.Valid = true
+
 	if l, err := ls.GetByURL(link.URL); err == nil && link.Password == "" {
 		return l, nil
 	}
+
 	if link.Password != "" {
 		hashedPassword, err := internal.HashPassword(link.Password)
 		if err != nil {
@@ -46,11 +49,13 @@ func (ls *LinksService) Create(link models.Link) (models.Link, error) {
 		}
 		link.Password = hashedPassword
 	}
+
 	err := ls.DB.
 		Select(models.LinkPermittedParams).
 		Create(&link).Error
 	if err != nil {
 		return link, err
 	}
+
 	return ls.Get(link.ID)
 }
