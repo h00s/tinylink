@@ -10,24 +10,37 @@ type LinksService struct {
 	raptor.Service
 }
 
-func (l *LinksService) Get(id uint) (models.PublicLink, error) {
+func (l *LinksService) Get(id uint) (models.Link, error) {
 	var link models.Link
 	if err := l.DB.First(&link, id).Error; err != nil {
-		return link.ToPublicLink(), err
+		return link, err
 	}
-	return link.ToPublicLink(), nil
+	return link, nil
 }
 
-func (l *LinksService) GetByShortID(shortID string) (models.PublicLink, error) {
+func (l *LinksService) GetByShortID(shortID string) (models.Link, error) {
 	return l.Get(internal.IDFromShortURI(shortID))
 }
 
-func (l *LinksService) Create(link models.Link) (models.PublicLink, error) {
+func (l *LinksService) GetByURL(url string) (models.Link, error) {
+	var link models.Link
+	if err := l.DB.
+		Where("url = ?", url).
+		First(&link).Error; err != nil {
+		return link, err
+	}
+	return link, nil
+}
+
+func (l *LinksService) Create(link models.Link) (models.Link, error) {
+	if err := internal.IsURLValid(link.URL); err != nil {
+		return link, err
+	}
 	err := l.DB.
 		Select(models.LinkPermittedParams).
 		Create(&link).Error
 	if err != nil {
-		return link.ToPublicLink(), err
+		return link, err
 	}
 	return l.Get(link.ID)
 }
