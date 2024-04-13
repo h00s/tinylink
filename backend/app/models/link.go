@@ -14,20 +14,21 @@ type Link struct {
 	ID        uint      `gorm:"primaryKey" json:"id"`
 	URL       string    `gorm:"uniqueIndex:idx_url_password;size:2048" json:"url"`
 	Password  string    `gorm:"uniqueIndex:idx_url_password;size:255" json:"password"`
-	Valid     bool      `json:"valid"`
+	Valid     bool      `json:"-"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
 }
 
 type PublicLink struct {
 	ID       string `json:"id"`
-	Password string `json:"-"`
+	Password string `json:"password,omitempty"`
 	Link
 }
 
 func (l *Link) ToPublicLink() PublicLink {
 	return PublicLink{
-		ID:   internal.ShortURIfromID(l.ID),
-		Link: *l,
+		ID:       internal.ShortURIfromID(l.ID),
+		Password: "",
+		Link:     *l,
 	}
 }
