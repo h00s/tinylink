@@ -3,5 +3,5 @@
 </script>
 
 <div>
-  <h1>{data.link}</h1>
+  <h1>{data.error.message}</h1>
 </div>
