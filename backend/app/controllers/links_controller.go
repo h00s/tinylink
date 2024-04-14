@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"errors"
+	"fmt"
 	"net/http"
 
 	"github.com/go-raptor/raptor"
@@ -19,11 +20,15 @@ type LinksController struct {
 func (lc *LinksController) Get(c *raptor.Context) error {
 	link, err := lc.Links.GetByShortID(c.Params("id"))
 	if err != nil {
+		fmt.Println(err)
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return c.JSON("Not found", http.StatusNotFound)
 		} else {
 			return c.JSON("Internal error", http.StatusInternalServerError)
 		}
+	}
+	if link.Password != "" {
+		return c.JSON("Password protected", http.StatusUnauthorized)
 	}
 	return c.JSON(link.ToPublicLink())
 }
