@@ -1,6 +1,10 @@
 package models
 
-import "github.com/go-raptor/raptor"
+import (
+	"net/http"
+
+	"github.com/go-raptor/raptor"
+)
 
 func NewError(code int, message string) raptor.Map {
 	return raptor.Map{
@@ -9,18 +13,18 @@ func NewError(code int, message string) raptor.Map {
 	}
 }
 
-func NewErrorNotFound() raptor.Map {
-	return NewError(404, "Not found")
+func NewErrorNotFound() (raptor.Map, int) {
+	return NewError(404, "Not found"), http.StatusNotFound
 }
 
-func NewErrorUnauthorized() raptor.Map {
-	return NewError(401, "Unauthorized")
+func NewErrorUnauthorized() (raptor.Map, int) {
+	return NewError(401, "Unauthorized"), http.StatusUnauthorized
 }
 
-func NewErrorInternal() raptor.Map {
-	return NewError(500, "Internal error")
+func NewErrorInternal() (raptor.Map, int) {
+	return NewError(500, "Internal error"), http.StatusInternalServerError
 }
 
-func NewErrorBadRequest() raptor.Map {
-	return NewError(400, "Bad request")
+func NewErrorBadRequest() (raptor.Map, int) {
+	return NewError(400, "Bad request"), http.StatusBadRequest
 }
