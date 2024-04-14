@@ -12,7 +12,9 @@ type LinksService struct {
 
 func (ls *LinksService) Get(id uint) (models.Link, error) {
 	var link models.Link
-	if err := ls.DB.First(&link, id).Error; err != nil {
+	if err := ls.DB.
+		Where("valid = ?", true).
+		First(&link, id).Error; err != nil {
 		return link, err
 	}
 	return link, nil

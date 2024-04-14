@@ -8,7 +8,7 @@ import (
 
 type Links []Link
 
-var LinkPermittedParams = []string{"URL", "Password"}
+var LinkPermittedParams = []string{"URL", "Password", "Valid"}
 
 type Link struct {
 	ID        uint      `gorm:"primaryKey" json:"id"`
