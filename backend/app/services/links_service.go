@@ -1,6 +1,8 @@
 package services
 
 import (
+	"errors"
+
 	"github.com/go-raptor/raptor"
 	"github.com/h00s/tinylink/app/models"
 	"github.com/h00s/tinylink/internal"
@@ -41,6 +43,9 @@ func (ls *LinksService) Create(link models.Link) (models.Link, error) {
 	link.Valid = true
 
 	if l, err := ls.GetByURL(link.URL); err == nil && link.Password == "" {
+		if !l.Valid {
+			return link, errors.New("link not valid")
+		}
 		return l, nil
 	}
 
