@@ -6,6 +6,7 @@ import (
 	"github.com/go-raptor/raptor"
 	"github.com/h00s/tinylink/app/models"
 	"github.com/h00s/tinylink/internal"
+	"gorm.io/gorm"
 )
 
 type LinksService struct {
@@ -17,7 +18,11 @@ func (ls *LinksService) Get(id uint) (models.Link, error) {
 	if err := ls.DB.
 		Where("valid = ?", true).
 		First(&link, id).Error; err != nil {
-		return link, err
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return link, raptor.NewErrorNotFound()
+		} else {
+			return link, raptor.NewErrorInternal()
+		}
 	}
 	return link, nil
 }
@@ -31,20 +36,24 @@ func (ls *LinksService) GetByURL(url string) (models.Link, error) {
 	if err := ls.DB.
 		Where("url = ?", url).
 		First(&link).Error; err != nil {
-		return link, err
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return link, raptor.NewErrorNotFound()
+		} else {
+			return link, raptor.NewErrorInternal()
+		}
 	}
 	return link, nil
 }
 
 func (ls *LinksService) Create(link models.Link) (models.Link, error) {
 	if err := internal.IsURLValid(link.URL); err != nil {
-		return link, err
+		return link, raptor.NewErrorBadRequest(err.Error())
 	}
 	link.Valid = true
 
 	if l, err := ls.GetByURL(link.URL); err == nil && link.Password == "" {
 		if !l.Valid {
-			return link, errors.New("link not valid")
+			return link, raptor.NewErrorForbidden("Link not valid")
 		}
 		return l, nil
 	}
@@ -52,7 +61,7 @@ func (ls *LinksService) Create(link models.Link) (models.Link, error) {
 	if link.Password != "" {
 		hashedPassword, err := internal.HashPassword(link.Password)
 		if err != nil {
-			return link, err
+			return link, raptor.NewErrorInternal("Error while hashing password")
 		}
 		link.Password = hashedPassword
 	}
@@ -61,7 +70,7 @@ func (ls *LinksService) Create(link models.Link) (models.Link, error) {
 		Select(models.LinkPermittedParams).
 		Create(&link).Error
 	if err != nil {
-		return link, err
+		return link, raptor.NewErrorInternal("Error while creating link")
 	}
 
 	return ls.Get(link.ID)

@@ -4,7 +4,7 @@ go 1.22
 
 require (
 	github.com/go-raptor/connector/postgres v0.2.7
-	github.com/go-raptor/raptor v0.9.0
+	github.com/go-raptor/raptor v0.9.1
 	golang.org/x/crypto v0.22.0
 	golang.org/x/net v0.24.0
 	gorm.io/gorm v1.25.9
@@ -21,7 +21,7 @@ require (
 	github.com/jackc/puddle/v2 v2.2.1 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
-	github.com/klauspost/compress v1.17.7 // indirect
+	github.com/klauspost/compress v1.17.8 // indirect
 	github.com/lmittmann/tint v1.0.4 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect

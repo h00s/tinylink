@@ -1,13 +1,11 @@
 package controllers
 
 import (
-	"errors"
 	"net/http"
 
 	"github.com/go-raptor/raptor"
 	"github.com/h00s/tinylink/app/models"
 	"github.com/h00s/tinylink/app/services"
-	"gorm.io/gorm"
 )
 
 type LinksController struct {
@@ -19,14 +17,10 @@ type LinksController struct {
 func (lc *LinksController) Get(c *raptor.Context) error {
 	link, err := lc.Links.GetByShortID(c.Params("id"))
 	if err != nil {
-		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return c.JSON(models.NewErrorNotFound())
-		} else {
-			return c.JSON(models.NewErrorInternal())
-		}
+		return c.JSONError(err)
 	}
 	if link.Password != "" {
-		return c.JSON(models.NewErrorUnauthorized())
+		return c.JSONError(raptor.NewErrorUnauthorized("Link is password protected"))
 	}
 	return c.JSON(link.ToPublicLink())
 }
@@ -34,11 +28,11 @@ func (lc *LinksController) Get(c *raptor.Context) error {
 func (lc *LinksController) Create(c *raptor.Context) error {
 	var link models.Link
 	if err := c.BodyParser(&link); err != nil {
-		return c.JSON(models.NewErrorBadRequest())
+		return c.JSONError(raptor.NewErrorBadRequest("Invalid JSON"))
 	}
 	l, err := lc.Links.Create(link)
 	if err != nil {
-		return c.JSON(models.NewErrorInternal())
+		return c.JSONError(err)
 	}
 	return c.JSON(l.ToPublicLink(), http.StatusCreated)
 }
