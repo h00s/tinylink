@@ -2,3 +2,9 @@ h1.title {
   font-size: 3rem;
   color: #99D19C;
 }
+
+@media (max-width: 768px) {
+  h1.title {
+    font-size: 2rem;
+  }
+}
