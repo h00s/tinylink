@@ -20,9 +20,21 @@ func (lc *LinksController) Get(c *raptor.Context) error {
 		return c.JSONError(err)
 	}
 	if link.Password != "" {
-		return c.JSONError(raptor.NewErrorUnauthorized("Link is password protected"))
+		// TODO: redirect to app to enter password
+		return c.SendStatus(http.StatusUnauthorized)
 	}
 	return c.JSON(link.ToPublicLink())
+}
+
+func (lc *LinksController) Redirect(c *raptor.Context) error {
+	link, err := lc.Links.GetByShortID(c.Params("shortID"))
+	if err != nil {
+		return c.JSONError(err)
+	}
+	if link.Password != "" {
+		return c.JSONError(raptor.NewErrorUnauthorized("Link is password protected"))
+	}
+	return c.Redirect(link.URL)
 }
 
 func (lc *LinksController) Create(c *raptor.Context) error {
