@@ -1,5 +1,6 @@
 <script>
   import Link from '$lib/components/Link.svelte';
+  import Footer from '$lib/components/Footer.svelte';
 </script>
 
 <div class="flex justify-center">
@@ -8,3 +9,5 @@
     <Link />
   </div>
 </div>
+
+<Footer />
