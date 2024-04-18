@@ -6,6 +6,9 @@ export default {
       colors: {
         'background-dark': '#011627',
         'background-light': '#fff',
+        'dark-blue': '#011627',
+        'light-green': '#99d19c',
+        'dark-green': '#73ab84',
       },
     },
   },
@@ -21,6 +24,7 @@ export default {
       {
         'dark': {
           'base-content': '#fff',
+          primary: '#99d19c',
         },
       }
     ],
