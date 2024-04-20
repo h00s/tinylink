@@ -1,9 +1,11 @@
 package models
 
+import "time"
+
 type Accesses []Access
 
 type Access struct {
-	ID        uint   `gorm:"primaryKey" json:"id"`
-	LinkID    uint   `gorm:"not null" json:"link_id"`
-	CreatedAt string `json:"created_at"`
+	ID        uint      `gorm:"primaryKey" json:"id"`
+	LinkID    uint      `gorm:"index;not null" json:"link_id"`
+	CreatedAt time.Time `json:"created_at"`
 }

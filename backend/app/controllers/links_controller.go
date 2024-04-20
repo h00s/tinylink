@@ -11,7 +11,8 @@ import (
 type LinksController struct {
 	raptor.Controller
 
-	Links *services.LinksService
+	Links    *services.LinksService
+	Accesses *services.AccessesService
 }
 
 func (lc *LinksController) Get(c *raptor.Context) error {
@@ -34,6 +35,7 @@ func (lc *LinksController) Redirect(c *raptor.Context) error {
 	if link.Password != "" {
 		return c.JSONError(raptor.NewErrorUnauthorized("Link is password protected"))
 	}
+	go lc.Accesses.Create(link.ID)
 	return c.Redirect(link.URL)
 }
 
