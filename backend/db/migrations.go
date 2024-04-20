@@ -8,5 +8,6 @@ import (
 func Migrations() raptor.Migrations {
 	return raptor.Migrations{
 		1: migrate.AddPaste,
+		2: migrate.AddAccess,
 	}
 }
