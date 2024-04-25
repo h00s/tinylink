@@ -6,6 +6,7 @@ func Routes() raptor.Routes {
 	return raptor.CollectRoutes(
 		raptor.Scope("/api/v1",
 			raptor.Scope("/links",
+				raptor.Route("POST", "/:id/authorize", "LinksController", "Authorize"),
 				raptor.Route("GET", "/:id", "LinksController", "Get"),
 				raptor.Route("POST", "", "LinksController", "Create"),
 			),
