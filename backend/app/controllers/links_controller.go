@@ -34,7 +34,7 @@ func (lc *LinksController) Redirect(c *raptor.Context) error {
 		return c.JSONError(err)
 	}
 	if link.Password != "" {
-		return c.Redirect(fmt.Sprintf("/%s/authorize", c.Params("shortID")))
+		return c.Redirect(fmt.Sprintf("/links/%s/authorize", c.Params("shortID")))
 	}
 	go lc.Accesses.Create(link.ID)
 	return c.Redirect(link.URL)
