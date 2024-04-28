@@ -3,7 +3,7 @@
   import { urlByShortId, linkModel } from '$lib/helpers/link'
 
   async function shortenLink() {
-    let response = await createLink(linkModel(url));
+    let response = await createLink(url);
     let data = await response.json();
 
     if (response.status === 201) {
@@ -14,7 +14,6 @@
       } else {
         alert('An error occurred while shortening the link');
       }
-      // console.log(response);
     }
   }
 
