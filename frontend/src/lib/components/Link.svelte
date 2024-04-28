@@ -1,6 +1,6 @@
 <script>
   import { createLink } from '$lib/repositories/links'
-  import { urlByShortId, linkModel } from '$lib/helpers/link'
+  import { urlByShortId, urlWithoutProtocol } from '$lib/helpers/link'
   import { onMount } from 'svelte'
   import { fade } from 'svelte/transition';
 
@@ -10,16 +10,18 @@
   });
 
   async function shortenLink() {
+    shortenLinkButtonCaption = '<span class="loading loading-dots loading-xs"></span>';
     let response = await createLink(url);
     let data = await response.json();
 
     if (response.status === 201) {
       shortenedUrl = urlByShortId(data.id);
     } else {
+      shortenLinkButtonCaption = "Skrati!";
       if (data.description) {
-        alert(data.description);
+        errorDescription = data.description;
       } else {
-        alert('An error occurred while shortening the link');
+        errorDescription = "Došlo je do greške prilikom skraćivanja linka."
       }
     }
   }
@@ -32,6 +34,7 @@
 
   let url;
   let inputUrl;
+  let errorDescription;
   let shortenedUrl;
   let shortenLinkButtonCaption = "Skrati!";
 </script>
@@ -46,7 +49,7 @@
         </label>
       </div>
       <div class="mt-4 md:mt-0">
-        <button on:click={shortenLink} class="btn btn-small btn-primary w-full md:w-auto">{shortenLinkButtonCaption}</button>
+        <button on:click={shortenLink} class="btn btn-small btn-primary w-full md:w-auto">{@html shortenLinkButtonCaption}</button>
       </div>
     </div>
     {#if displayedOptions}
@@ -55,7 +58,7 @@
           <div class="flex-1">
             <label class="input input-bordered flex items-center gap-2">
               🔒
-              <input id="password" type="password" class="w-full text-dark-blue" placeholder="Ako želite, zaštitite skraćeni link lozinkom..." />
+              <input id="password" type="password" maxlength="72" class="w-full text-dark-blue" placeholder="Ako želite, zaštitite skraćeni link lozinkom..." />
             </label>
           </div>
           <!-- div class="flex-1 mt-4 md:mt-0">
@@ -67,12 +70,21 @@
           </div -->
         </div>
       </div>
+      {#if errorDescription}
+        <div class="mt-8 mb-4">
+          <p class="text-sm">Došlo je do greške prilikom skraćivanja linka:</p>
+          <p class="text-red-300">{errorDescription}</p>
+        </div>
+      {/if}
     {/if}
   {:else}
-    <div class="mb-4">
-      <p>
-        Your shortened link is:
-        {shortenedUrl}
+    <div class="mt-8 mb-8">
+      <p class="text-2xl font-bold">
+        <a href="{shortenedUrl}" target="_blank" class="text-blue">{urlWithoutProtocol(shortenedUrl)}</a>
+        <span class="ml-2" style="font-size: .875em; margin-right: .125em; position: relative; top: -.25em; left: -.125em">
+          📄
+          <span style="position: absolute; top: .25em; left: .25em">📄</span>
+        </span>
       </p>
     </div>
   {/if}
