@@ -6,14 +6,14 @@ export async function fetchLink(link, svelteFetch = undefined) {
   return svelteFetch(`${PUBLIC_API_URL}/links/${link}`);
 }
 
-export async function createLink(url, svelteFetch = undefined) {
+export async function createLink(url, password, svelteFetch = undefined) {
   svelteFetch = svelteFetch || fetch;
   return svelteFetch(`${PUBLIC_API_URL}/links`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(linkModel(url)),
+    body: JSON.stringify(linkModel(url, password)),
   });
 }
 

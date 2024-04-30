@@ -1,9 +1,9 @@
 import { PUBLIC_LINKS_URL } from '$env/static/public'
 
-export function linkModel(url) {
+export function linkModel(url, password = '') {
   return { 
-    "url": url,
-    "password": "",
+    'url': url,
+    'password': password,
   };
 }
 
