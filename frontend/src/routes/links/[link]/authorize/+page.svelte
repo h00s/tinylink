@@ -11,7 +11,7 @@
   <h1 class="pt-16 pb-2 font-extrabold text-center">
     {data.url}
   </h1>
-  <Authorize />
+  <Authorize link={data.link} />
 </FlexContainer>
 
 <Footer />

@@ -17,13 +17,13 @@ export async function createLink(url, password, svelteFetch = undefined) {
   });
 }
 
-export async function authLink(link, svelteFetch = undefined) {
+export async function authLink(link, password, svelteFetch = undefined) {
   svelteFetch = svelteFetch || fetch;
   return svelteFetch(`${PUBLIC_API_URL}/links/${link}/authorize`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(link),
+    body: JSON.stringify(linkModel(undefined, password)),
   });
 }

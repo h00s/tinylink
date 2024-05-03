@@ -5,5 +5,6 @@ export async function load({ fetch, params }) {
 
   return {
     url: url,
+    link: params.link,
   }
 }
