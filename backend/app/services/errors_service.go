@@ -41,6 +41,9 @@ func NewErrorsService() *ErrorsService {
 			"ERROR_CREATING_LINK": {
 				"hr": "Pogreška prilikom stvaranja linka",
 			},
+			"INVALID_PASSWORD": {
+				"hr": "Neispravna lozinka",
+			},
 		},
 	}
 }

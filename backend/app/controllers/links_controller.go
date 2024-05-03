@@ -15,6 +15,7 @@ type LinksController struct {
 
 	Links    *services.LinksService
 	Accesses *services.AccessesService
+	Errors   *services.ErrorsService
 }
 
 func (lc *LinksController) Get(c *raptor.Context) error {
@@ -50,7 +51,7 @@ func (lc *LinksController) Authorize(c *raptor.Context) error {
 		return c.JSONError(raptor.NewErrorBadRequest("Invalid JSON"))
 	}
 	if internal.ComparePasswords(l.Password, link.Password) != nil {
-		return c.JSONError(raptor.NewErrorUnauthorized("Invalid password"))
+		return c.JSONError(raptor.NewErrorUnauthorized(lc.Errors.Message("INVALID_PASSWORD")))
 	}
 	return c.JSON(l.ToPublicLink())
 }
