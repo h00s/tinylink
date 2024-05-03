@@ -17,6 +17,7 @@
     if (response.status === 201) {
       shortenedUrl = urlByShortId(data.id);
     } else {
+      inputUrl.focus();
       shortenLinkButtonCaption = "Skrati!";
       if (data.description) {
         errorDescription = data.description;
