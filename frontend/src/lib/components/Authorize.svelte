@@ -15,11 +15,11 @@
     } else {
       password = '';
       inputPassword.focus();
-      error = data.description;
+      errorDescription = data.description;
     }
   }
 
-  let error;
+  let errorDescription;
   let inputPassword;
   let password;
 
@@ -31,18 +31,16 @@
     <div class="flex-1 md:mr-4">
       <label class="input input-bordered flex items-center gap-2">
         🔒
-        <input bind:this={inputPassword} bind:value={password} type="password" class="w-full text-dark-blue" />
+        <input bind:this={inputPassword} bind:value={password} type="password" class="w-full text-dark-blue" placeholder="Upišite lozinku da biste otključali skraćeni link..." />
       </label>
     </div>
     <div class="mt-4 md:mt-0">
-      <button on:click={authorize} class="btn btn-small btn-primary w-full md:w-auto">Autoriziraj</button>
+      <button on:click={authorize} class="btn btn-small btn-primary w-full md:w-auto">Otključaj</button>
     </div>
   </div>
-  {#if error}
-    <div class="mb-4">
-      <p>
-        {error}
-      </p>
+  {#if errorDescription}
+    <div class="mt-8 mb-4">
+      <p class="text-red-300">{errorDescription}</p>
     </div>
   {/if}
 </div>
