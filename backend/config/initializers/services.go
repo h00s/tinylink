@@ -9,5 +9,6 @@ func Services() raptor.Services {
 	return raptor.Services{
 		&services.LinksService{},
 		&services.AccessesService{},
+		services.NewErrorsService(),
 	}
 }

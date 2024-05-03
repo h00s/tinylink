@@ -12,37 +12,37 @@ import (
 func IsURLValid(urlToCheck string) error {
 	u, err := url.ParseRequestURI(urlToCheck)
 	if err != nil {
-		return errors.New("invalid URL")
+		return errors.New("INVALID_URL")
 	}
 
 	if !u.IsAbs() {
-		return errors.New("URL is not absolute")
+		return errors.New("URL_NOT_ABSOLUTE")
 	}
 
 	if u.Scheme != "http" && u.Scheme != "https" && u.Scheme != "ftp" {
-		return errors.New("URL does not have http(s) prefix")
+		return errors.New("URL_NOT_HTTP")
 	}
 
 	host := strings.ToLower(u.Host)
 
 	_, err = net.LookupHost(host)
 	if err != nil {
-		return errors.New("host doesn't exist")
+		return errors.New("HOST_NOT_FOUND")
 	}
 
 	domain, err := publicsuffix.EffectiveTLDPlusOne(host)
 	if err != nil {
-		return errors.New("error while getting domain")
+		return errors.New("INVALID_DOMAIN")
 	}
 
 	if isWhitelisted(domain) {
 		return nil
 	}
 	if isRedirector(domain) {
-		return errors.New("domain found in redirectors list")
+		return errors.New("REDIRECTOR_DOMAIN")
 	}
 	if isBlacklisted(domain) {
-		return errors.New("domain is blacklisted")
+		return errors.New("BLACKLISTED_DOMAIN")
 	}
 
 	return nil

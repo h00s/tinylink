@@ -11,6 +11,8 @@ import (
 
 type LinksService struct {
 	raptor.Service
+
+	Errors *ErrorsService
 }
 
 func (ls *LinksService) Get(id uint) (models.Link, error) {
@@ -47,13 +49,13 @@ func (ls *LinksService) GetByURL(url string) (models.Link, error) {
 
 func (ls *LinksService) Create(link models.Link) (models.Link, error) {
 	if err := internal.IsURLValid(link.URL); err != nil {
-		return link, raptor.NewErrorBadRequest(err.Error())
+		return link, raptor.NewErrorBadRequest(ls.Errors.Message(err.Error()))
 	}
 	link.Valid = true
 
 	if l, err := ls.GetByURL(link.URL); err == nil && link.Password == "" {
 		if !l.Valid {
-			return link, raptor.NewErrorForbidden("Link not valid")
+			return link, raptor.NewErrorForbidden(ls.Errors.Message("LINK_NOT_VALID"))
 		}
 		return l, nil
 	}
@@ -61,7 +63,7 @@ func (ls *LinksService) Create(link models.Link) (models.Link, error) {
 	if link.Password != "" {
 		hashedPassword, err := internal.HashPassword(link.Password)
 		if err != nil {
-			return link, raptor.NewErrorInternal("Error while hashing password")
+			return link, raptor.NewErrorInternal(ls.Errors.Message("ERROR_HASHING_PASSWORD"))
 		}
 		link.Password = hashedPassword
 	}
@@ -70,7 +72,7 @@ func (ls *LinksService) Create(link models.Link) (models.Link, error) {
 		Select(models.LinkPermittedParams).
 		Create(&link).Error
 	if err != nil {
-		return link, raptor.NewErrorInternal("Error while creating link")
+		return link, raptor.NewErrorInternal(ls.Errors.Message("ERROR_CREATING_LINK"))
 	}
 
 	return ls.Get(link.ID)
