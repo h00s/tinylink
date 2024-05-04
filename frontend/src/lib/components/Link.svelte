@@ -6,6 +6,10 @@
 
   onMount(() => {
     displayedOptions = false;
+    if (inputUrl === undefined) {
+      console.log(undefined);
+      return;
+    }
     inputUrl.focus();
   });
 
