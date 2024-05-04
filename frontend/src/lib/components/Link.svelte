@@ -32,7 +32,11 @@
     }
   }
 
-  async function handleInput() {
+  async function handleInput(event) {
+    if (event.key === "Enter") {
+      shortenLink();
+    }
+    errorDescription = "";
     displayedOptions = true;
   }
 
@@ -50,7 +54,7 @@
           <input
             bind:this={inputUrl}
             bind:value={url}
-            on:input={handleInput}
+            on:keydown={handleInput}
             type="text"
             class="w-full text-dark-blue"
             placeholder="Zalijepite link koji želite skratiti..."
@@ -74,7 +78,6 @@
               🔒
               <input
                 bind:value={password}
-                id="password"
                 type="password"
                 maxlength="72"
                 class="w-full text-dark-blue"

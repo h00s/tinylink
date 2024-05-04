@@ -21,6 +21,13 @@
     }
   }
 
+  function handleInputPassword(event) {
+    if (event.key === "Enter") {
+      authorize();
+    }
+    errorDescription = "";
+  }
+
   let errorDescription;
   let password, inputPassword;
 
@@ -35,6 +42,7 @@
         <input
           bind:this={inputPassword}
           bind:value={password}
+          on:keydown={handleInputPassword}
           type="password"
           class="w-full text-dark-blue"
           placeholder="Upišite lozinku da biste otključali skraćeni link..."
