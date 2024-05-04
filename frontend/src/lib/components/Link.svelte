@@ -2,14 +2,14 @@
   import { createLink } from '$lib/repositories/links'
   import { urlByShortId, urlWithoutProtocol } from '$lib/helpers/link'
   import { onMount } from 'svelte'
+  import { afterNavigate } from '$app/navigation';
   import { fade } from 'svelte/transition'
 
   onMount(() => {
     displayedOptions = false;
-    if (inputUrl === undefined) {
-      console.log(undefined);
-      return;
-    }
+  });
+
+  afterNavigate(() => {
     inputUrl.focus();
   });
 
