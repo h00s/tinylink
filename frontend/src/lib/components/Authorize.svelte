@@ -1,7 +1,7 @@
 <script>
-  import { authLink } from '$lib/repositories/links'
-  import { tick } from 'svelte'
-  import { afterNavigate } from '$app/navigation'
+  import { authLink } from "$lib/repositories/links";
+  import { tick } from "svelte";
+  import { afterNavigate } from "$app/navigation";
 
   afterNavigate(async () => {
     await tick();
@@ -15,7 +15,7 @@
     if (response.status === 200) {
       window.location = data.url;
     } else {
-      password = '';
+      password = "";
       inputPassword.focus();
       errorDescription = data.description;
     }
@@ -32,11 +32,22 @@
     <div class="flex-1 md:mr-4">
       <label class="input input-bordered flex items-center gap-2">
         🔒
-        <input bind:this={inputPassword} bind:value={password} type="password" class="w-full text-dark-blue" placeholder="Upišite lozinku da biste otključali skraćeni link..." />
+        <input
+          bind:this={inputPassword}
+          bind:value={password}
+          type="password"
+          class="w-full text-dark-blue"
+          placeholder="Upišite lozinku da biste otključali skraćeni link..."
+        />
       </label>
     </div>
     <div class="mt-4 md:mt-0">
-      <button on:click={authorize} class="btn btn-small btn-primary w-full md:w-auto">Otključaj</button>
+      <button
+        on:click={authorize}
+        class="btn btn-small btn-primary w-full md:w-auto"
+      >
+        Otključaj
+      </button>
     </div>
   </div>
   {#if errorDescription}

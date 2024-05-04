@@ -1,9 +1,9 @@
 <script>
-  import { createLink } from '$lib/repositories/links'
-  import { urlByShortId, urlWithoutProtocol } from '$lib/helpers/link'
-  import { onMount, tick } from 'svelte'
-  import { afterNavigate } from '$app/navigation'
-  import { fade } from 'svelte/transition'
+  import { createLink } from "$lib/repositories/links";
+  import { urlByShortId, urlWithoutProtocol } from "$lib/helpers/link";
+  import { onMount, tick } from "svelte";
+  import { afterNavigate } from "$app/navigation";
+  import { fade } from "svelte/transition";
 
   onMount(() => {
     displayedOptions = false;
@@ -27,7 +27,7 @@
       if (data.description) {
         errorDescription = data.description;
       } else {
-        errorDescription = "Došlo je do greške prilikom skraćivanja linka."
+        errorDescription = "Došlo je do greške prilikom skraćivanja linka.";
       }
     }
   }
@@ -47,11 +47,23 @@
       <div class="flex-1 md:mr-4">
         <label class="input input-bordered flex items-center gap-2">
           🔗
-          <input bind:this={inputUrl} bind:value={url} on:input={handleInput} id="url" type="text" class="w-full text-dark-blue" placeholder="Zalijepite link koji želite skratiti..." />
+          <input
+            bind:this={inputUrl}
+            bind:value={url}
+            on:input={handleInput}
+            type="text"
+            class="w-full text-dark-blue"
+            placeholder="Zalijepite link koji želite skratiti..."
+          />
         </label>
       </div>
       <div class="mt-4 md:mt-0">
-        <button on:click={shortenLink} class="btn btn-small btn-primary w-full md:w-auto">{@html shortenLinkButtonCaption}</button>
+        <button
+          on:click={shortenLink}
+          class="btn btn-small btn-primary w-full md:w-auto"
+        >
+          {@html shortenLinkButtonCaption}
+        </button>
       </div>
     </div>
     {#if displayedOptions}
@@ -60,7 +72,14 @@
           <div class="flex-1">
             <label class="input input-bordered flex items-center gap-2">
               🔒
-              <input bind:value={password} id="password" type="password" maxlength="72" class="w-full text-dark-blue" placeholder="Ako želite, zaštitite skraćeni link lozinkom..." />
+              <input
+                bind:value={password}
+                id="password"
+                type="password"
+                maxlength="72"
+                class="w-full text-dark-blue"
+                placeholder="Ako želite, zaštitite skraćeni link lozinkom..."
+              />
             </label>
           </div>
           <!-- div class="flex-1 mt-4 md:mt-0">
@@ -82,8 +101,13 @@
   {:else}
     <div class="mt-8 mb-8">
       <p class="text-2xl font-bold">
-        <a href="{shortenedUrl}" target="_blank" class="text-blue">{urlWithoutProtocol(shortenedUrl)}</a>
-        <span class="ml-2" style="font-size: .875em; margin-right: .125em; position: relative; top: -.25em; left: -.125em">
+        <a href={shortenedUrl} target="_blank" class="text-blue">
+          {urlWithoutProtocol(shortenedUrl)}
+        </a>
+        <span
+          class="ml-2"
+          style="font-size: .875em; margin-right: .125em; position: relative; top: -.25em; left: -.125em"
+        >
           📄
           <span style="position: absolute; top: .25em; left: .25em">📄</span>
         </span>
