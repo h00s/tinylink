@@ -2,7 +2,7 @@
   import { authLink } from '$lib/repositories/links'
   import { onMount } from 'svelte'
 
-  onMount(async () => {
+  onMount(() => {
     inputPassword.focus();
   });
 

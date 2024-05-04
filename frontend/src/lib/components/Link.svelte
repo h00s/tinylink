@@ -4,7 +4,7 @@
   import { onMount } from 'svelte'
   import { fade } from 'svelte/transition';
 
-  onMount(async () => {
+  onMount(() => {
     displayedOptions = false;
     inputUrl.focus();
   });
