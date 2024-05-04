@@ -1,8 +1,10 @@
 <script>
   import { authLink } from '$lib/repositories/links'
-  import { onMount } from 'svelte'
+  import { tick } from 'svelte'
+  import { afterNavigate } from '$app/navigation'
 
-  onMount(() => {
+  afterNavigate(async () => {
+    await tick();
     inputPassword.focus();
   });
 
@@ -20,8 +22,7 @@
   }
 
   let errorDescription;
-  let inputPassword;
-  let password;
+  let password, inputPassword;
 
   export let link;
 </script>

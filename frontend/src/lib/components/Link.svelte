@@ -2,7 +2,7 @@
   import { createLink } from '$lib/repositories/links'
   import { urlByShortId, urlWithoutProtocol } from '$lib/helpers/link'
   import { onMount, tick } from 'svelte'
-  import { afterNavigate } from '$app/navigation';
+  import { afterNavigate } from '$app/navigation'
   import { fade } from 'svelte/transition'
 
   onMount(() => {
@@ -36,13 +36,8 @@
     displayedOptions = true;
   }
 
-  let displayedOptions;
-
-  let url;
-  let password;
-  let inputUrl;
-  let errorDescription;
-  let shortenedUrl;
+  let displayedOptions, errorDescription;
+  let url, shortenedUrl, inputUrl, password;
   let shortenLinkButtonCaption = "Skrati!";
 </script>
 
