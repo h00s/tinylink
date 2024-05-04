@@ -1,15 +1,19 @@
 package services
 
-import "github.com/go-raptor/raptor"
+import (
+	"github.com/go-raptor/raptor"
+)
 
 type ErrorsService struct {
 	raptor.Service
 
 	messages map[string]map[string]string
+	lang     string
 }
 
-func NewErrorsService() *ErrorsService {
+func NewErrorsService(lang string) *ErrorsService {
 	return &ErrorsService{
+		lang: lang,
 		messages: map[string]map[string]string{
 			"INVALID_URL": {
 				"hr": "Neispravan link",
@@ -54,7 +58,7 @@ func (es *ErrorsService) Message(identifier string) string {
 		return "Unknown error"
 	}
 
-	if message, ok := langMessages["hr"]; ok {
+	if message, ok := langMessages[es.lang]; ok {
 		return message
 	}
 
