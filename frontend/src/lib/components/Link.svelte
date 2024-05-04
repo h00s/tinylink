@@ -64,7 +64,7 @@
           <div class="flex-1">
             <label class="input input-bordered flex items-center gap-2">
               🔒
-              <input bind:value={password} type="password" maxlength="72" class="w-full text-dark-blue" placeholder="Ako želite, zaštitite skraćeni link lozinkom..." />
+              <input bind:value={password} id="password" type="password" maxlength="72" class="w-full text-dark-blue" placeholder="Ako želite, zaštitite skraćeni link lozinkom..." />
             </label>
           </div>
           <!-- div class="flex-1 mt-4 md:mt-0">
