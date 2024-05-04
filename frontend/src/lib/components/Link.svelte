@@ -10,9 +10,7 @@
   });
 
   afterNavigate(() => {
-    const input = document.querySelector('#url');
-    input.focus();
-    //inputUrl.focus();
+    inputUrl.focus();
   });
 
   async function shortenLink() {
