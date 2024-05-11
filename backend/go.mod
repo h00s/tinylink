@@ -5,6 +5,7 @@ go 1.22
 require (
 	github.com/go-raptor/connector/postgres v0.2.8
 	github.com/go-raptor/raptor v0.9.2
+	github.com/redis/go-redis/v9 v9.5.1
 	golang.org/x/crypto v0.23.0
 	golang.org/x/net v0.25.0
 	gorm.io/gorm v1.25.10
@@ -13,6 +14,8 @@ require (
 require (
 	github.com/BurntSushi/toml v1.3.2 // indirect
 	github.com/andybalholm/brotli v1.1.0 // indirect
+	github.com/cespare/xxhash/v2 v2.2.0 // indirect
+	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/gofiber/fiber/v2 v2.52.4 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect

@@ -7,7 +7,7 @@ import (
 func App(c *raptor.Config) *raptor.AppInitializer {
 	return &raptor.AppInitializer{
 		Database:    Database(),
-		Services:    Services(),
+		Services:    Services(c),
 		Middlewares: Middlewares(),
 		Controllers: Controllers(),
 	}

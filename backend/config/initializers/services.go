@@ -5,10 +5,11 @@ import (
 	"github.com/h00s/tinylink/app/services"
 )
 
-func Services() raptor.Services {
+func Services(c *raptor.Config) raptor.Services {
 	return raptor.Services{
 		&services.LinksService{},
 		&services.AccessesService{},
 		services.NewErrorsService("hr"),
+		services.NewMemstore(c),
 	}
 }

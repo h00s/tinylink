@@ -1,7 +1,9 @@
 package services
 
 import (
+	"encoding/json"
 	"errors"
+	"fmt"
 
 	"github.com/go-raptor/raptor"
 	"github.com/h00s/tinylink/app/models"
@@ -12,11 +14,17 @@ import (
 type LinksService struct {
 	raptor.Service
 
-	Errors *ErrorsService
+	Errors   *ErrorsService
+	Memstore *Memstore
 }
 
 func (ls *LinksService) Get(id uint) (models.Link, error) {
 	var link models.Link
+	data, err := ls.Memstore.Get(fmt.Sprintf("links:%d", id))
+	if err == nil && data != "" {
+		json.Unmarshal([]byte(data), &link)
+		return link, nil
+	}
 	if err := ls.DB.
 		Where("valid = ?", true).
 		First(&link, id).Error; err != nil {
@@ -26,6 +34,7 @@ func (ls *LinksService) Get(id uint) (models.Link, error) {
 			return link, raptor.NewErrorInternal()
 		}
 	}
+	go ls.Memstore.Set(fmt.Sprintf("links:%d", id), link)
 	return link, nil
 }
 
