@@ -48,6 +48,9 @@ func NewErrorsService(lang string) *ErrorsService {
 			"INVALID_PASSWORD": {
 				"hr": "Neispravna lozinka",
 			},
+			"TOO_MANY_REQUESTS": {
+				"hr": "Previše zahtjeva",
+			},
 		},
 	}
 }
