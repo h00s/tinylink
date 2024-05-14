@@ -7,6 +7,7 @@ import (
 
 func Middlewares() raptor.Middlewares {
 	return raptor.Middlewares{
-		raptor.Use(middlewares.NewLimiterMiddleware()),
+		raptor.Use(middlewares.NewBurstLimiterMiddleware()),
+		raptor.Use(middlewares.NewDailyLimiterMiddleware()),
 	}
 }
