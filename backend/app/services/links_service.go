@@ -45,7 +45,7 @@ func (ls *LinksService) GetByShortID(shortID string) (models.Link, error) {
 func (ls *LinksService) GetByURL(url string) (models.Link, error) {
 	var link models.Link
 	if err := ls.DB.
-		Where("url = ?", url).
+		Where("url = ? and password = ?", url, "").
 		First(&link).Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return link, raptor.NewErrorNotFound()
