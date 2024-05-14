@@ -11,7 +11,7 @@ func Routes() raptor.Routes {
 				raptor.Route("POST", "", "LinksController", "Create"),
 			),
 		),
-		raptor.Route("GET", "/links", "SPAController", "Index"),
+		//raptor.Route("GET", "/links", "SPAController", "Index"),
 		raptor.Route("GET", "/:shortID", "LinksController", "Redirect"),
 		raptor.Route("GET", "*", "SPAController", "Index"),
 	)
