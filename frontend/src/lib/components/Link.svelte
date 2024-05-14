@@ -7,7 +7,7 @@
   import { fade } from "svelte/transition"
 
   onMount(() => {
-    displayedOptions = false;
+    newLink();
   });
 
   afterNavigate(async () => {
@@ -46,6 +46,7 @@
     shortenedUrl = undefined;
     password = undefined;
     displayedOptions = false;
+    shortenLinkButtonCaption = "Skrati!"
   }
 
   let displayedOptions, errorDescription;
