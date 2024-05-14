@@ -1,4 +1,5 @@
 <script>
+  import { copy } from "svelte-copy"
   import { createLink } from "$lib/repositories/links"
   import { urlByShortId, urlWithoutProtocol } from "$lib/helpers/link"
   import { onMount, tick } from "svelte"
@@ -115,6 +116,7 @@
           {urlWithoutProtocol(shortenedUrl)}
         </a>
         <span
+          use:copy={shortenedUrl}
           class="ml-2"
           style="font-size: .875em; margin-right: .125em; position: relative; top: -.25em; left: -.125em"
         >
