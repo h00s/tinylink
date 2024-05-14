@@ -16,7 +16,9 @@ func NewLimiterMiddleware() fiber.Handler {
 		Max:        5,
 		Expiration: 1 * time.Minute,
 		LimitReached: func(c *fiber.Ctx) error {
-			return raptor.NewErrorTooManyRequests("Previše zahtjeva")
+			return c.
+				Status(fiber.StatusTooManyRequests).
+				JSON(raptor.NewErrorTooManyRequests("Previše zahtjeva"))
 		},
 	})
 }
