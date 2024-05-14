@@ -40,6 +40,13 @@
     displayedOptions = true;
   }
 
+  function newLink() {
+    url = undefined;
+    shortenedUrl = undefined;
+    password = undefined;
+    displayedOptions = false;
+  }
+
   let displayedOptions, errorDescription;
   let url, shortenedUrl, inputUrl, password;
   let shortenLinkButtonCaption = "Skrati!";
@@ -115,6 +122,14 @@
           <span style="position: absolute; top: .25em; left: .25em">📄</span>
         </span>
       </p>
+    </div>
+    <div class="mt-4">
+      <button
+        on:click={newLink}
+        class="btn btn-small btn-primary w-full md:w-auto"
+      >
+        Skrati novi link
+      </button>
     </div>
   {/if}
 </div>
