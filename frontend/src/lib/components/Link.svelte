@@ -7,7 +7,7 @@
   import { fade } from "svelte/transition"
 
   onMount(() => {
-    newLink();
+    newLink(false);
   });
 
   afterNavigate(async () => {
@@ -41,17 +41,29 @@
     displayedOptions = true;
   }
 
-  function newLink() {
+  function newLink(focus = true) {
     url = undefined;
     shortenedUrl = undefined;
     password = undefined;
     displayedOptions = false;
     shortenLinkButtonCaption = "Skrati!"
+    tooltip = false;
+    if (focus) {
+      tick().then(() => inputUrl.focus());
+    }
+  }
+
+  function urlCopied() {
+    tooltip = true;
+    setTimeout(() => {
+      tooltip = false;
+    }, 2000);
   }
 
   let displayedOptions, errorDescription;
   let url, shortenedUrl, inputUrl, password;
   let shortenLinkButtonCaption = "Skrati!";
+  let tooltip;
 </script>
 
 <div class="text-center">
@@ -113,12 +125,13 @@
   {:else}
     <div class="mt-8 mb-8">
       <p class="text-2xl font-bold">
-        <a href={shortenedUrl} target="_blank" class="text-blue">
+        <a href={shortenedUrl} target="_blank" class="text-blue tooltip-primary" class:tooltip={tooltip} class:tooltip-open={tooltip} data-tip="Kopirano!">
           {urlWithoutProtocol(shortenedUrl)}
         </a>
         <span
           use:copy={shortenedUrl}
-          class="ml-2"
+          on:svelte-copy={urlCopied}
+          class="ml-2 cursor-pointer"
           style="font-size: .875em; margin-right: .125em; position: relative; top: -.25em; left: -.125em"
         >
           📄
