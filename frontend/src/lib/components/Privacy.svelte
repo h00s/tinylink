@@ -1,5 +1,5 @@
 <script>
-  import FlexContainer from "$lib/components/FlexContainer.svelte";
+  import FlexContainer from "$lib/components/FlexContainer.svelte"
 </script>
 
 <FlexContainer>

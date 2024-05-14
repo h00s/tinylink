@@ -1,9 +1,9 @@
 <script>
-  import { createLink } from "$lib/repositories/links";
-  import { urlByShortId, urlWithoutProtocol } from "$lib/helpers/link";
-  import { onMount, tick } from "svelte";
-  import { afterNavigate } from "$app/navigation";
-  import { fade } from "svelte/transition";
+  import { createLink } from "$lib/repositories/links"
+  import { urlByShortId, urlWithoutProtocol } from "$lib/helpers/link"
+  import { onMount, tick } from "svelte"
+  import { afterNavigate } from "$app/navigation"
+  import { fade } from "svelte/transition"
 
   onMount(() => {
     displayedOptions = false;

@@ -1,7 +1,7 @@
 <script>
-  import { authLink } from "$lib/repositories/links";
-  import { tick } from "svelte";
-  import { afterNavigate } from "$app/navigation";
+  import { authLink } from "$lib/repositories/links"
+  import { tick } from "svelte"
+  import { afterNavigate } from "$app/navigation"
 
   afterNavigate(async () => {
     await tick();
