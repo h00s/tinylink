@@ -3,6 +3,9 @@ export default {
   content: ['./src/**/*.{html,js,svelte,ts}'],
   theme: {
     extend: {
+      fontSize: {
+        '4xl': '5rem',
+      },
       colors: {
         'background-dark': '#011627',
         'background-light': '#fff',

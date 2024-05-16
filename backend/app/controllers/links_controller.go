@@ -32,7 +32,12 @@ func (lc *LinksController) Get(c *raptor.Context) error {
 func (lc *LinksController) Redirect(c *raptor.Context) error {
 	link, err := lc.Links.GetByShortID(c.Params("shortID"))
 	if err != nil {
-		return c.JSONError(err)
+		if raptorErr, ok := err.(*raptor.Error); ok {
+			if raptorErr.Code == http.StatusNotFound {
+				return c.Redirect("/errors/404")
+			}
+		}
+		return c.Redirect("/errors/500")
 	}
 	if link.Password != "" {
 		return c.Redirect(fmt.Sprintf("/links/%s/authorize", c.Params("shortID")))
